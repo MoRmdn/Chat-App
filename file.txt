@@ -1,0 +1,15 @@
+Firebase 
+
+1- StreamBuilder(stream:, Builder:(ctx,streamSnapshot){})
+2- FirebaseFirestore.instance.collection('address to add new collection to').add({#as map  'valueKey': 'value'})
+
+3- add auth screen 
+	##theming
+	##validation
+	##saving state of the form 
+	##unfoucus the TextFormFields
+	##use valueKey
+	##create function get userInputs from authForm() <= widget
+	
+	
+///if i give variable initial value I should make his type "var" 
