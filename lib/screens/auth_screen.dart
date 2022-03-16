@@ -1,4 +1,5 @@
 import 'package:chat/widgets/auth_widgets.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -13,6 +14,7 @@ class _AuthScreenState extends State<AuthScreen> {
   bool _isItSignIn = true;
   FirebaseAuth auth = FirebaseAuth.instance;
   UserCredential? userCredential;
+  FirebaseFirestore _db = FirebaseFirestore.instance;
 
   void submitFUN({
     String? name,
