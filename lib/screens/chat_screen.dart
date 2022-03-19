@@ -1,4 +1,5 @@
 import 'package:chat/widgets/messages.dart';
+import 'package:chat/widgets/new_message.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -33,49 +34,27 @@ class ChatScreen extends StatelessWidget {
                   value: 'logout',
                 ),
               ],
-              onChanged: (identfire) {
-                if (identfire == 'logout') {
+              onChanged: (identifier) {
+                if (identifier == 'logout') {
                   FirebaseAuth.instance.signOut();
                 }
               })
         ],
       ),
-      // generic type >QuerySnapshot to let flutter know that taht's stream from firebase
       body: Column(
         children: [
           Expanded(child: Messages()),
+          NewMessage(),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _db.collection('/chats/').add({
-            'text': 'Hey u have been succeeded',
-          });
-        },
-        child: const Icon(Icons.add),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     _db.collection('/users/').add({
+      //       'PhonNum': '0128116545',
+      //     });
+      //   },
+      //   child: const Icon(Icons.add),
+      // ),
     );
   }
 }
-// StreamBuilder<QuerySnapshot>(
-//           stream: FirebaseFirestore.instance.collection('/chats/').snapshots(),
-//           builder: (ctx, snapshot) {
-//             if (snapshot.connectionState == ConnectionState.waiting) {
-//               return const Center(
-//                 child: CircularProgressIndicator(),
-//               );
-//             }
-//             if (!snapshot.hasData) {
-//               return const Center(
-//                 child: CircularProgressIndicator(),
-//               );
-//             } else {
-//               final List<DocumentSnapshot> documents = snapshot.data!.docs;
-//               return ListView.builder(
-//                 itemCount: documents.length,
-//                 itemBuilder: (ctx, i) {
-//                   return Text(documents[i]['text']);
-//                 },
-//               );
-//             }
-//           })

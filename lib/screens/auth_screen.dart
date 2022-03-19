@@ -32,6 +32,13 @@ class _AuthScreenState extends State<AuthScreen> {
       } else {
         userCredential = await auth.createUserWithEmailAndPassword(
             email: email!, password: pass!);
+
+        /// add to DataBase
+        _db.collection('/users/').add({
+          'Name': name,
+          'Email': email,
+          'PhoneNum': number,
+        });
       }
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).removeCurrentSnackBar();
@@ -62,6 +69,7 @@ class _AuthScreenState extends State<AuthScreen> {
         _isItSignIn = signIn;
       });
     }
+    print(userCredential!.credential);
   }
 
   @override
