@@ -14,7 +14,7 @@ class _AuthScreenState extends State<AuthScreen> {
   bool _isItSignIn = true;
   FirebaseAuth auth = FirebaseAuth.instance;
   UserCredential? userCredential;
-  FirebaseFirestore _db = FirebaseFirestore.instance;
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   void submitFUN({
     String? name,
@@ -59,6 +59,7 @@ class _AuthScreenState extends State<AuthScreen> {
         ),
       );
     } catch (e2) {
+      // ignore: avoid_print
       print(e2);
     }
   }
@@ -69,7 +70,7 @@ class _AuthScreenState extends State<AuthScreen> {
         _isItSignIn = signIn;
       });
     }
-    print(userCredential!.credential);
+    // ignore: avoid_print
   }
 
   @override

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class AuthWidgets extends StatefulWidget {
   bool isItSignIn;
   final void Function({
@@ -10,7 +11,8 @@ class AuthWidgets extends StatefulWidget {
     BuildContext? ctx,
   }) submitFN;
   final void Function(bool isChanged) anyChange;
-  AuthWidgets(this.isItSignIn, this.submitFN, this.anyChange);
+  AuthWidgets(this.isItSignIn, this.submitFN, this.anyChange, {Key? key})
+      : super(key: key);
 
   @override
   _AuthWidgetsState createState() => _AuthWidgetsState();
@@ -26,8 +28,8 @@ class _AuthWidgetsState extends State<AuthWidgets> {
 
   String name = '';
   String email = '';
-  var pass;
-  var conPass;
+  String pass = '';
+  String conPass = '';
   double phoneNum = 0;
 
   bool get isItChanged {
@@ -145,7 +147,7 @@ class _AuthWidgetsState extends State<AuthWidgets> {
                               return null;
                             },
                             onSaved: (value) {
-                              pass = value;
+                              pass = value!;
                             },
                             // onEditingComplete: (value) {
                             //   pass = value;
@@ -253,6 +255,7 @@ class _AuthWidgetsState extends State<AuthWidgets> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   Row _TextFieldBuilder({
     required BuildContext context,
     double? width,

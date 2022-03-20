@@ -1,6 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class MessageBubble extends StatelessWidget {
   String message;
   String userName;
@@ -15,7 +15,6 @@ class MessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CollectionReference users = FirebaseFirestore.instance.collection('users');
     return Row(
       mainAxisAlignment: isME ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
