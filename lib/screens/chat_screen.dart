@@ -7,8 +7,7 @@ import 'package:flutter/material.dart';
 class ChatScreen extends StatelessWidget {
   ChatScreen({Key? key}) : super(key: key);
 
-  final _db = FirebaseFirestore.instance;
-  // String authData = FirebaseAuth.instance.currentUser!.uid;
+  final authData = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -47,14 +46,6 @@ class ChatScreen extends StatelessWidget {
           NewMessage(),
         ],
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     _db.collection('/users/').add({
-      //       'PhonNum': '0128116545',
-      //     });
-      //   },
-      //   child: const Icon(Icons.add),
-      // ),
     );
   }
 }

@@ -34,7 +34,7 @@ class _AuthScreenState extends State<AuthScreen> {
             email: email!, password: pass!);
 
         /// add to DataBase
-        _db.collection('/users/').add({
+        _db.collection('/users/').doc(userCredential!.user!.uid).set({
           'Name': name,
           'Email': email,
           'PhoneNum': number,

@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 class Messages extends StatelessWidget {
   Messages({Key? key}) : super(key: key);
 
-  final _db = FirebaseFirestore.instance;
   final user = FirebaseAuth.instance.currentUser;
 
   @override
@@ -23,13 +22,20 @@ class Messages extends StatelessWidget {
             );
           } else if (!snapShot.hasData) {
             return Center(
-              child: Row(mainAxisSize: MainAxisSize.min, children: const [
-                Icon(Icons.sentiment_satisfied_alt),
-                SizedBox(
-                  width: 10,
-                ),
-                Text('Say Hello'),
-              ]),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: const [
+                  Icon(
+                    Icons.sentiment_satisfied_alt,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    'Say Hello',
+                  ),
+                ],
+              ),
             );
           } else {
             List<DocumentSnapshot> documents = snapShot.data!.docs;
@@ -37,7 +43,16 @@ class Messages extends StatelessWidget {
               reverse: true,
               itemCount: documents.length,
               itemBuilder: (ctx, index) {
-                return MessageBubble(message: documents[index]['text']);
+                return
+                    //Text(documents[index]['text']);
+
+                    ///
+                    MessageBubble(
+                  key: ValueKey(documents[index].id),
+                  message: documents[index]['text'],
+                  isME: user!.uid == documents[index]['userID'],
+                  userName: documents[index]['userName'],
+                );
               },
             );
           }
