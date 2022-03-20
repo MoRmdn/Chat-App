@@ -1,7 +1,10 @@
-import 'package:chat/widgets/auth_widgets.dart';
+import 'dart:io';
+
+import 'package:chat/widgets/auth/auth_widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -14,13 +17,15 @@ class _AuthScreenState extends State<AuthScreen> {
   bool _isItSignIn = true;
   FirebaseAuth auth = FirebaseAuth.instance;
   UserCredential? userCredential;
-  final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final _db = FirebaseFirestore.instance;
+  final _storage = FirebaseStorage.instance;
 
   void submitFUN({
+    File? image,
     String? name,
     String? email,
     String? pass,
-    double? number,
+    String? number,
     BuildContext? ctx,
   }) async {
     try {
@@ -32,12 +37,21 @@ class _AuthScreenState extends State<AuthScreen> {
       } else {
         userCredential = await auth.createUserWithEmailAndPassword(
             email: email!, password: pass!);
+        final ref = _storage
+            .ref()
+            .child('users_images')
+            .child(userCredential!.user!.uid + '.jpg');
+        // upload image
+        await ref.putFile(image!);
+        // get image url
+        final downloadURL = await ref.getDownloadURL();
 
         /// add to DataBase
         _db.collection('/users/').doc(userCredential!.user!.uid).set({
           'Name': name,
           'Email': email,
           'PhoneNum': number,
+          'imageURL': downloadURL
         });
       }
     } on FirebaseAuthException catch (e) {

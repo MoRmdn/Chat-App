@@ -1,13 +1,17 @@
+import 'dart:io';
+
+import 'package:chat/widgets/auth/image_picker.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class AuthWidgets extends StatefulWidget {
   bool isItSignIn;
   final void Function({
+    File? image,
     String? name,
     String? email,
     String? pass,
-    double? number,
+    String? number,
     BuildContext? ctx,
   }) submitFN;
   final void Function(bool isChanged) anyChange;
@@ -30,13 +34,24 @@ class _AuthWidgetsState extends State<AuthWidgets> {
   String email = '';
   String pass = '';
   String conPass = '';
-  double phoneNum = 0;
+  String phoneNum = '';
+  File? _image;
+
+  void getImage(File? image) {
+    _image = image!;
+  }
 
   bool get isItChanged {
     return widget.isItSignIn;
   }
 
   void tryToSubmit() {
+    if (!widget.isItSignIn) {
+      if (_image == null) {
+        return;
+      }
+    }
+
     final validate = formKey.currentState!.validate();
     if (validate == false) {
       return;
@@ -44,6 +59,7 @@ class _AuthWidgetsState extends State<AuthWidgets> {
     formKey.currentState!.save();
 
     widget.submitFN(
+      image: _image,
       ctx: context,
       name: name,
       email: email,
@@ -78,6 +94,13 @@ class _AuthWidgetsState extends State<AuthWidgets> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        if (widget.isItSignIn == false)
+                          PickImage(
+                            getImage: getImage,
+                          ),
                         const SizedBox(
                           height: 15,
                         ),
@@ -198,7 +221,7 @@ class _AuthWidgetsState extends State<AuthWidgets> {
                                     return null;
                                   },
                                   onSaved: (value) {
-                                    phoneNum = double.parse(value!);
+                                    phoneNum = value!;
                                   }),
                             ),
                         const SizedBox(

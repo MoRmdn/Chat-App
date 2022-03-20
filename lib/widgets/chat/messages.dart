@@ -1,4 +1,4 @@
-import 'package:chat/widgets/message_bubble.dart';
+import 'package:chat/widgets/chat/message_bubble.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -52,6 +52,7 @@ class Messages extends StatelessWidget {
                   message: documents[index]['text'],
                   isME: user!.uid == documents[index]['userID'],
                   userName: documents[index]['userName'],
+                  imageURL: documents[index]['imageURL'],
                 );
               },
             );

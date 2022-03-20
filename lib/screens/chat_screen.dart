@@ -1,5 +1,5 @@
-import 'package:chat/widgets/messages.dart';
-import 'package:chat/widgets/new_message.dart';
+import 'package:chat/widgets/chat/messages.dart';
+import 'package:chat/widgets/chat/new_message.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

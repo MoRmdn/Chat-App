@@ -1,6 +1,5 @@
-import 'package:chat/helpers/theming.dart';
-import 'package:chat/screens/auth_screen.dart';
-
+import '/helpers/theming.dart';
+import '/screens/auth_screen.dart';
 import '/screens/chat_screen.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';

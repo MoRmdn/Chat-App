@@ -5,12 +5,14 @@ class MessageBubble extends StatelessWidget {
   String message;
   String userName;
   bool isME;
+  String imageURL;
 
   MessageBubble({
     Key? key,
     required this.message,
     required this.isME,
     required this.userName,
+    required this.imageURL,
   }) : super(key: key);
 
   @override
@@ -18,6 +20,20 @@ class MessageBubble extends StatelessWidget {
     return Row(
       mainAxisAlignment: isME ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
+        const SizedBox(
+          width: 5,
+        ),
+        if (!isME)
+          CircleAvatar(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(50),
+              child: Image.network(
+                imageURL,
+                fit: BoxFit.fitWidth,
+              ),
+            ),
+            backgroundColor: Colors.grey,
+          ),
         Container(
           width: 150,
           decoration: BoxDecoration(
@@ -51,10 +67,24 @@ class MessageBubble extends StatelessWidget {
                 style: const TextStyle(
                   color: Colors.white,
                 ),
-              )
+              ),
             ],
           ),
         ),
+        if (isME)
+          CircleAvatar(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(50),
+              child: Image.network(
+                imageURL,
+                fit: BoxFit.fitWidth,
+              ),
+            ),
+            backgroundColor: Colors.grey,
+          ),
+        const SizedBox(
+          width: 5,
+        )
       ],
     );
   }
