@@ -7,7 +7,7 @@ Firebase
 	##theming
 	##validation
 	##saving state of the form 
-	##unfoucus the TextFormFields
+	##unfocus the TextFormFields
 	##use valueKey
 	##create function get userInputs from authForm() <= widget
 	
